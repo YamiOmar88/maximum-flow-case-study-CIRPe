@@ -35,6 +35,6 @@ def read_nodes_capacity_from_file(filename):
         for line in fileHandle:
             line = line.strip().split()
             i, c_i = line[0], line[1]
-            c_i = integer(c_i)
+            c_i = int(c_i)
             nodes_capacity[i] = c_i        
     return nodes_capacity
