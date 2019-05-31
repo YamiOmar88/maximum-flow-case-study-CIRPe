@@ -36,6 +36,17 @@ class Graph:
         return normalized_edges
         
         
+    def find_antiparallel_edges(self):
+        '''This function finds pairs of antiparallel edges.'''
+        antiparallel = []
+        for k in self.edges.keys():
+            antiparallel_edge = (k[1],k[0])
+            if self.edges.get(antiparallel_edge, False):
+                antiparallel.append(k)
+        antiparallel.sort()
+        return antiparallel
+        
+        
     @property
     def nodes(self):
         '''Returns the set of nodes for this graph'''
@@ -55,3 +66,13 @@ class Graph:
         ingoing = {k:set(v) for k,v in ingoing.items()}
         outgoing = {k:set(v) for k,v in outgoing.items()}
         return ingoing, outgoing
+        
+    @property
+    def strength(self):
+        '''Calculate the strength of each node.'''
+        inStrength, outStrength = {k:0 for k in self.nodes}, {k:0 for k in self.nodes}
+        for edge,weight in self.edges.items():
+            i, j = edge[0], edge[1]
+            inStrength[j] = inStrength[j] + weight 
+            outStrength[i] = outStrength[i] + weight
+        return inStrength, outStrength
