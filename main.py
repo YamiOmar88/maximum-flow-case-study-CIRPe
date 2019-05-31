@@ -6,6 +6,7 @@ import readwrite
 from graph import Graph 
 from capacity import Capacity
 from fordfulkerson import FordFulkerson
+import string
 
 
 # Load edges
@@ -28,15 +29,16 @@ C_edges = C.get_edges_capacity(G, "weight")
 flow_network = Graph(C_edges.copy())
 
 antiparallel_edges = flow_network.find_antiparallel_edges()
-counter = 100
+counter = 0
 while len(antiparallel_edges) > 0:
     edge = antiparallel_edges.pop(0)
     anti = (edge[1],edge[0])
     antiparallel_edges.remove( anti )
     w = flow_network.edges[anti]
     flow_network.deleteEdge(anti[0], anti[1])
-    flow_network.addEdge(i=edge[1], j=counter, w_ij=w)
-    flow_network.addEdge(i=counter, j=edge[0], w_ij=w)
+    new_node = string.ascii_uppercase[counter]
+    flow_network.addEdge(i=edge[1], j=new_node, w_ij=w)
+    flow_network.addEdge(i=new_node, j=edge[0], w_ij=w)
     counter += 1
     
     
