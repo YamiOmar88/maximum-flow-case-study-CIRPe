@@ -43,7 +43,7 @@ class Capacity:
                 C[edge] = float('inf')
             else:
                 i = edge[0]
-                C[edge] = self.nodes_capacity[i] / out_degree[i]
+                C[edge] = int(self.nodes_capacity[i] / out_degree[i])
         return C
         
     
@@ -58,7 +58,7 @@ class Capacity:
                 C[edge] = float('inf')
             else:
                 i = edge[0]
-                C[edge] = (G.edges[edge] / out_strength[i]) * self.nodes_capacity[i]
+                C[edge] = int((G.edges[edge] / out_strength[i]) * self.nodes_capacity[i])
         return C
         
     
@@ -74,5 +74,5 @@ class Capacity:
             else:
                 i, j = edge[0], edge[1]
                 divisor = sum([self.nodes_capacity[x] for x in outgoing[i] if x != self.sink_node])
-                C[edge] = (self.nodes_capacity[j] / divisor) * self.nodes_capacity[i]
+                C[edge] = int((self.nodes_capacity[j] / divisor) * self.nodes_capacity[i])
         return C
